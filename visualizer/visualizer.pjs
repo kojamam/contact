@@ -1,3 +1,4 @@
+/* @pjs preload = "seji_contact2/data/ball.png,seji_contact2/data/back.png,seji_contact2/data/maru.png" */
 Ball[] ballOf = new Ball[31];
 
 float bpm=240;
@@ -14,12 +15,12 @@ int time;
 
 
 void setup() {
-  colorMode(HSB);
+  colorMode(RGB);
   size(1280, 720);
   frameRate(35);
-  ballImg = loadImage("ball.png");
-  backImg = loadImage("back.png");
-  maruImg = loadImage("maru.png");
+  ballImg = loadImage("seji_contact2/data/ball.png");
+  backImg = loadImage("seji_contact2/data/back.png");
+  maruImg = loadImage("seji_contact2/data/maru.png");
   imageMode(CENTER);
   colorval=255-bpm;
   for (int h=0; h<=30; h++) {
@@ -31,7 +32,7 @@ void draw() {
   speed=bpm/108;
   if(bpm<=255&&bpm>=0){
   colorval=255-bpm;}
-  
+
   pushMatrix();
   for(int i = 0; i < height/4; i++)
   {
@@ -42,23 +43,23 @@ void draw() {
   }
 
   popMatrix();
-  
+
   translate(640, 360);
   noStroke();
-  
-  
-  
-  
+
+
+
+
   tint(colorval-30,200,200);
   image(backImg, 0, 0, 1280, 720);
   rotate += 0;
   //trans += 10;
-  
+
       tint(colorval-30,255,255);
 image(maruImg,mouseX-width/2,mouseY-height/2,200,200);
 
 time=floor(15/speed);
-  
+
   if (count==0) {
     for (int i=1; i<=4; i++) {
       ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, random(colorval-30,colorval+30), 200, 200);count++;
@@ -80,7 +81,7 @@ time=floor(15/speed);
   } else if (count>=time*4) {for (int i=17; i<=20; i++) {
       count=0;
     }
-    
+
   }  else{count++;}
   for (int i=0; i<=30; i++) {
 
@@ -118,18 +119,19 @@ class Ball {
 
 
   void ballMove(float ballSpeed) {
-    //ここから時計  
+    //ここから時計
     trans+=10*ballSpeed;
     pushMatrix();
 
     noFill();
     strokeWeight(4);
     stroke(ballH, ballS, ballB);
-    rotate(radians(ballRotate));
+    // rotate(radians(ballRotate));
+    // rotate(PI);
     translate(trans*ballScale/50, trans*ballScale/50);
     tint(ballH, ballS, ballB,185);
     image(ballImg, 0, 0, ballScale*trans/50, ballScale*trans/50);
-    
+
 
 
 
