@@ -13,6 +13,7 @@ int updown = -1; //-1 => DOWM, 1=>up
 long bpm = 0;
 float min = 0;
 float max = 10000;
+float amplitude;
 
 void setup()
 {
@@ -22,6 +23,25 @@ void setup()
     controller = new Controller();
     leapMotion = new LeapMotion(this);
     timeQueue = new TimeQueue();
+    
+  ac = new AudioContext();
+  try{
+    sp = new SamplePlayer(ac, new Sample(sketchPath("") +"What Makes You Beautiful.mp3"));
+    rateValue = new Glide(ac, 1.0);
+    sp.setRate(rateValue);
+    rateValue = new Glide(ac, 1.0);
+    sp.setPitch(rateValue);
+    sp.setValue(2);
+    sp.setLoopType(SamplePlayer.LoopType.LOOP_FORWARDS);
+    sp.start();
+    gainValue= new Glide(ac, 0.8, 30);
+    sampleGain = new Gain(ac, 1, gainValue);
+    sampleGain.addInput(sp);
+    ac.out.addInput(sampleGain);
+    ac.start();
+  }catch(Exception e){
+    println("Error");
+  }
 
 }
 
@@ -48,39 +68,35 @@ void onFrame(final Controller controller)
             float posY = pos.get(1);
 
             if(handId++ == 0){//BPM判定に使うのは片手だけ
-                float diff;
 
                 if(updown == -1 && velocityY > 0){//極小
                     min = posY;
-                    diff = Math.abs(max - min);
-                    if(diff > 15){//小さすぎる振幅は無視
+                    amplitude = Math.abs(max - min);
+                    if(amplitude > 15){//小さすぎる振幅は無視
                         updown = 1;
                         bpm = timeQueue.push(System.currentTimeMillis());
+                        changeRate(bpm);
                         // System.out.println("MINIMAL");
                     }
-                    // System.out.println(diff);
                 }
 
                 if(updown == 1 && velocityY < 0){//極大
                     max = posY;
-                    diff = Math.abs(max - min);
-                    if(diff > 15){
+                    amplitude = Math.abs(max - min);
+                    if(amplitude > 15){
                         updown = -1;
                         bpm = timeQueue.push(System.currentTimeMillis());
-                        // System.out.println("MAXIMAL");
                     }
-                    // System.out.println(diff);
                 }
 
-                System.out.println(bpm);
+                System.out.println("BPM: " + bpm + ", Amplitude: " + amplitude);
 
             }
-
-
         }
     }
 
 }
+
 
 
 class TimeQueue{
@@ -95,6 +111,6 @@ class TimeQueue{
     }
 
     private long calcBPM(){
-        return 60000 / (this.time[0] - this.time[2]);
+        return 60000 / (this.time[0] - this.time[2]); 
     }
 }
