@@ -3,7 +3,12 @@
   <head>
     <title>Leap Motion</title>
     <script src="http://js.leapmotion.com/leap-0.6.4.js"></script>
+    <script src="assets/js/processing.js"></script>
+    <script src="assets/js/audioControll.js"></script>
+    <script src="assets/js/visualizer.js"></script>
+
     <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="utf8">
   </head>
 
   <body>
@@ -13,18 +18,15 @@
         <source src="assets/audio/What Makes You Beautiful.mp3">
       </audio>
       <br>
-      <!-- <div id="blist">
-        <a class="button" onclick="play();">PLAY</a>
-        <a class="button" onclick="pause();">PAUSE</a>
-        <a class="button" onclick="skip(10);">SKIP(10s)</a>
-        <a class="button" onclick="reset();">RESET</a>
-        <a class="button" onclick="rateup(0.1);">RATEUP(0.1)</a>
-        <a class="button" onclick="ratedown(0.1);">RATEDOWN(0.1)</a>
-        <a class="button" onclick="ratechange(0.5);">RATECHANGE(0.5)</a>
-      </div> -->
+
 
       <div id="barBd"><div id="bar"></div></div>
     </div>
+
+    <div id="visualizer">
+          <canvas data-processing-sources="seji_contact2/seji_contact2.pde"></canvas>
+    </div>
+
+
   </body>
 </html>
-<script src="assets/js/main.js"></script>
