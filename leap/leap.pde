@@ -76,7 +76,6 @@ void onFrame(final Controller controller)
                         updown = 1;
                         bpm = timeQueue.push(System.currentTimeMillis());
                         changeRate(bpm);
-                        // System.out.println("MINIMAL");
                     }
                 }
 
@@ -86,6 +85,8 @@ void onFrame(final Controller controller)
                     if(amplitude > 15){
                         updown = -1;
                         bpm = timeQueue.push(System.currentTimeMillis());
+                        changeRate(bpm);
+
                     }
                 }
 
