@@ -20,7 +20,7 @@ void setup() {
 }
 
 void draw() {
-  count++;
+  
   translate(640, 360);
   background(255);
   rotate += 0;
@@ -30,34 +30,37 @@ void draw() {
 
   if (count==0) {
     for (int i=1; i<=4; i++) {
-      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);
+      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);count++;
     }
   } else if (count==15) {
 
     for (int i=5; i<=8; i++) {
-      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);
+      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);count++;
     }
   } else if (count==30) {
 
     for (int i=9; i<=12; i++) {
-      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);
+      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);count++;
     }
   } else if (count==45) {
     for (int i=13; i<=16; i++) {
-      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);
+      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);count++;
     }
   } else if (count>=59) {for (int i=17; i<=20; i++) {
-      ballOf[i] = new Ball(100, floor(random(0, 360)), 0, 0, floor(random(0, 255)), 100, 100);
+      count=0;
     }
-    count=0;
-  }  
+    
+  }  else{count++;}
   for (int i=0; i<=30; i++) {
 
 
     ballOf[i].ballMove(speed);
   }
+  
   println(count);
 }
+
+
 class Ball {
   int ballScale;
   int ballTranslate;
