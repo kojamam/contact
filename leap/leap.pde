@@ -35,7 +35,7 @@ void draw()
 void onFrame(final Controller controller)
 {
   Frame frame = controller.frame();
-  int i = 0;
+  int handId = 0;
     if (!frame.hands().isEmpty())
     {
       for (Hand hand : frame.hands())
@@ -46,7 +46,7 @@ void onFrame(final Controller controller)
           float posY = pos.get(1);
         //   System.out.println(pos);
 
-          if(i == 0){
+          if(handId++ == 0){
               if(updown == -1 && velocityY > 0){//極小
                   updown = 1;
                   bpm = timeQueue.push(System.currentTimeMillis());
