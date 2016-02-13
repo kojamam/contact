@@ -11,58 +11,73 @@ LeapMotion leapMotion;
 TimeQueue timeQueue;
 int updown = -1; //-1 => DOWM, 1=>up
 long bpm = 0;
+float min = 0;
+float max = 10000;
 
 void setup()
 {
-  size(720,  1280);
-  background(20);
+    size(720,  1280);
+    background(20);
 
-  controller = new Controller();
-  leapMotion = new LeapMotion(this);
-  timeQueue = new TimeQueue();
+    controller = new Controller();
+    leapMotion = new LeapMotion(this);
+    timeQueue = new TimeQueue();
 
 }
 
 
 void draw()
 {
-  fill(20);
-  rect(0, 0, width, height);
+    fill(20);
+    rect(0, 0, width, height);
 }
 
 
 
 void onFrame(final Controller controller)
 {
-  Frame frame = controller.frame();
-  int handId = 0;
+    Frame frame = controller.frame();
+    int handId = 0;
     if (!frame.hands().isEmpty())
     {
-      for (Hand hand : frame.hands())
-      {
-          Vector pos = (Vector) hand.palmPosition();
-          Vector velocity = hand.palmVelocity();
-          float velocityY = velocity.get(1);
-          float posY = pos.get(1);
-        //   System.out.println(pos);
+        for (Hand hand : frame.hands())
+        {
+            Vector pos = (Vector) hand.palmPosition();
+            Vector velocity = hand.palmVelocity();
+            float velocityY = velocity.get(1);
+            float posY = pos.get(1);
 
-          if(handId++ == 0){
-              if(updown == -1 && velocityY > 0){//極小
-                  updown = 1;
-                  bpm = timeQueue.push(System.currentTimeMillis());
-                  System.out.println(bpm);
-              }
+            if(handId++ == 0){//BPM判定に使うのは片手だけ
+                float diff;
 
-              if(updown == 1 && velocityY < 0){//極大
-                  updown = -1;
-                  bpm = timeQueue.push(System.currentTimeMillis());
-                  System.out.println(bpm);
-              }
+                if(updown == -1 && velocityY > 0){//極小
+                    min = posY;
+                    diff = Math.abs(max - min);
+                    if(diff > 15){//小さすぎる振幅は無視
+                        updown = 1;
+                        bpm = timeQueue.push(System.currentTimeMillis());
+                        // System.out.println("MINIMAL");
+                    }
+                    // System.out.println(diff);
+                }
 
-          }
+                if(updown == 1 && velocityY < 0){//極大
+                    max = posY;
+                    diff = Math.abs(max - min);
+                    if(diff > 15){
+                        updown = -1;
+                        bpm = timeQueue.push(System.currentTimeMillis());
+                        // System.out.println("MAXIMAL");
+                    }
+                    // System.out.println(diff);
+                }
+
+                System.out.println(bpm);
+
+            }
 
 
-      }
+        }
     }
 
 }
