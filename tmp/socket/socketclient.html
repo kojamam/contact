@@ -11,7 +11,8 @@
 
       ws.onopen = function() {
       // Web Socket is connected, send data using send()
-      ws.send(100);
+      webSocket.send(100);
+
       alert("Message is sent...");
       };
 
@@ -29,6 +30,7 @@
       alert("WebSocket NOT supported by your Browser!");
       }
       }
+
     </script>
   </head>
   <body>

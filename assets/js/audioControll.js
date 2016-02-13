@@ -86,7 +86,7 @@ var min = 0;
 var max = 10000;
 var amplitude; //振幅
 
-var controller = new Leap.Controller();
+// var controller = new Leap.Controller();
 
 Leap.loop({enableGestures: true}, function(frame){
     // フレーム毎の処理

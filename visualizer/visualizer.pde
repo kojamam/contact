@@ -60,7 +60,7 @@ void draw() {
 
     //背景
     if (bpm <= 255 && bpm >= 0) {
-        colorval = 255 - bpm;
+        colorval = 255 - bpm*1.3;
     }
 
     pushMatrix();

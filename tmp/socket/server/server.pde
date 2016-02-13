@@ -9,7 +9,8 @@ void setup() {
 void draw() {
   Client c = server.available();
   if (c != null) {
-    int s = c.read();
+    String s = c.readStringUntil('\n').trim();
     println("server received: " + s);
+    //server.write("488");
   }
 }
