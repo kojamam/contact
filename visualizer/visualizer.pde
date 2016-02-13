@@ -14,7 +14,7 @@ long bpm = 240;
 float min = 0;
 float max = 10000;
 float amplitude;
-float rightX, rightY;
+float rightX, rightY, leftX, leftY;
 
 Ball[] ballOf = new Ball[31];
 
@@ -79,6 +79,7 @@ void draw() {
 
   tint(colorval-30, 255, 255);
   image(maruImg, rightX + 400, -rightY+300 + 100, 200, 200);
+  image(maruImg, leftX - 400, -leftY+300 + 100, 200, 200);
 
   time=floor(15/speed);
 
@@ -185,10 +186,13 @@ void onFrame(final Controller controller)
             float velocityY = velocity.get(1);
             float posY = pos.get(1);
 
-
-
-            rightX = stabilizedPos.get(0);
-            rightY = stabilizedPos.get(1);
+            if(hand.isRight()){
+              rightX = stabilizedPos.get(0);
+              rightY = stabilizedPos.get(1);
+            }else{
+              leftX = stabilizedPos.get(0);
+              leftY = stabilizedPos.get(1);
+            }
 
             System.out.println(stabilizedPos);
 
