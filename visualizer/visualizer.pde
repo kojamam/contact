@@ -49,6 +49,7 @@ void setup() {
 }
 
 void draw() {
+  bpm = Queue.prototype.calcBPM;
   speed=bpm/108;
   if (bpm<=255&&bpm>=0) {
     colorval=255-bpm;
@@ -183,12 +184,12 @@ void onFrame(final Controller controller)
             Vector velocity = hand.palmVelocity();
             float velocityY = velocity.get(1);
             float posY = pos.get(1);
-            
-           
-            
+
+
+
             rightX = stabilizedPos.get(0);
             rightY = stabilizedPos.get(1);
-            
+
             System.out.println(stabilizedPos);
 
             if(handId++ == 0){//BPM判定に使うのは片手だけ
@@ -236,6 +237,6 @@ class TimeQueue{
     }
 
     private long calcBPM(){
-        return 60000 / (this.time[0] - this.time[2]); 
+        return 60000 / (this.time[0] - this.time[2]);
     }
 }

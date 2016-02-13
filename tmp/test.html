@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello Web - Controlling Processing from JavaScript</title>
+    <script src="http://js.leapmotion.com/leap-0.6.4.js"></script>
+    <script src="http://js.leapmotion.com/leap-plugins-0.1.11.min.js"></script>
+    <script src="../assets/js/processing.js"></script>
+  </head>
+  <body>
+
+    <!-- ここまでは必須項目
+         Processingアプリケーションのjavascriptモードでも自動的にエクスポートされます -->
+    <canvas id="sketch" data-processing-sources="tmp.pde"></canvas>
+
+    <!-- インターフェースが必要ならここでボタン等を設置します -->
+    <button onclick="startSketch();">
+      Start</button>
+    <button onclick="stopSketch();">
+      Stop</button>
+
+    <!-- ここでスクリプトを追加します -->
+
+  </body>
+</html>
+<script type="text/javascript" src="../assets/js/network.js"></script>
+<script type="text/javascript" src="../assets/js/main.js"></script>
